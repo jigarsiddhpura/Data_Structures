@@ -131,5 +131,4 @@ void main()
     poly3 = addPoly(poly1, poly2, poly);
     // printf("success");
     display(poly3);
-
 }
