@@ -6,6 +6,7 @@ struct Node
 {
     int data;
     struct Node *next;
+    // since the pointer next is pointing to the node , its data type is also node
 };
 struct Node *head; // declaring head global
 
