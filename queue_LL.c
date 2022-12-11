@@ -10,8 +10,7 @@ struct Node
 
 struct Node *createNode(){
     struct Node *temp;
-    temp = (struct Node*)malloc(sizeof(struct Node));
-    // temp = temp -> next;
+    temp = (struct Node*)malloc(sizeof(struct Node));       
     temp -> next = NULL;
     return temp;
 }
