@@ -5,7 +5,7 @@ struct node
 {
     int c, p;
     struct node *next;
-};
+}*head1, *head2, *head3;
 
 struct node *createnode(int coeff, int exp)
 {
@@ -18,10 +18,10 @@ struct node *createnode(int coeff, int exp)
 }
 
 // createPoly creates a polynomial & returns its head
-struct node *createPoly()
+struct node *createPoly(struct node *head)
 {
     int n, coeff, exp;
-    struct node *new_node, *temp, *head = NULL;
+    struct node *new_node, *temp;
     printf("Enter the no.of terms:");
     scanf("%d", &n);
     while (n != 0)
@@ -47,34 +47,65 @@ struct node *createPoly()
     return head;
 }
 
-struct node *addPoly(struct node *ptr1, struct node *ptr2, struct node *ptr)
+struct node *addPoly(struct node *p1, struct node *p2, struct node *p)
 {
-    ptr = createnode(0, 0);
+    struct node *ptr1, *ptr2, *ptr, *nn;
+    int co ,po;
+    ptr1 = p1;
+    ptr2 = p2;
+    // ptr = createnode(0, 0);
     while (ptr1->next && ptr2->next)
     {
-        // polynomial 1/2 with higher power is added to ptr 
+        // polynomial 1/2 with higher power is added to ptr
         if (ptr1->p > ptr2->p)
         {
-            ptr->c = ptr1->c;
-            ptr->p = ptr1->p;
+            co = ptr1->c;
+            po = ptr1->p;
+            nn = createnode(co, po);
+            if(p == NULL){
+                p = nn;
+                ptr = p;
+            }
+            else{
+                ptr->next =nn;
+                ptr = ptr->next;
+            }
             ptr1 = ptr1->next;
         }
         else if (ptr1->p < ptr2->p)
         {
-            ptr->c = ptr2->c;
-            ptr->p = ptr2->p;
+            co = ptr2->c;
+            po = ptr2->p;
+            nn = createnode(co, po);
+            if(p == NULL){
+                p = nn;
+                ptr = p;
+            }
+            else{
+                ptr->next =nn;
+                ptr = ptr->next;
+            }
+            
             ptr2 = ptr2->next;
         }
 
         // if power sme add poly 1&2
         else
         {
-            ptr->c = ptr1->c + ptr2->c;
-            ptr->p = ptr1->p + ptr2->p;
+            co = ptr1->c + ptr2->c;
+            po = ptr1->p;
+            nn = createnode(co, po);
+            if(p == NULL){
+                p = nn;
+                ptr = p;
+            }
+            else{
+                ptr->next =nn;
+                ptr = ptr->next;
+            }
             ptr1 = ptr1->next;
             ptr2 = ptr2->next;
         }
-        ptr->next = createnode(0, 0);
         ptr = ptr->next;
     }
 
@@ -91,9 +122,10 @@ struct node *addPoly(struct node *ptr1, struct node *ptr2, struct node *ptr)
 
     while (ptr_new->next != NULL)
     {
-        ptr->c = ptr_new->c;
-        ptr->p = ptr_new->p;
-        ptr->next = createnode(0, 0);
+        co = ptr_new->c;
+        po = ptr_new->p;
+        nn = createnode(co, po);
+        ptr->next = nn;
         ptr = ptr->next;
         ptr_new = ptr_new->next;
     }
@@ -122,13 +154,15 @@ void main()
 {
     struct node *poly1, *poly2, *poly, *poly3;
 
-    // creating 2 polnomial 
+    // creating 2 polnomial
     printf("For Equation 1:\n");
-    poly1 = createPoly();
+    head1 = createPoly(head1);
+    display(head1);
     printf("For Equation 2:\n");
-    poly2 = createPoly();
+    head2 = createPoly(head2);
+    display(head2);
 
-    poly3 = addPoly(poly1, poly2, poly);
+    poly3 = addPoly(head1, head2, head3);
     // printf("success");
     display(poly3);
 }
