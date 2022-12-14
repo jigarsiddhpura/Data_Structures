@@ -96,7 +96,7 @@ void main()
             printf("Enter the value");
             int val;
             scanf("%d", &val);
-            search(val);
+            // search(val);
             break;
 
         case 4:

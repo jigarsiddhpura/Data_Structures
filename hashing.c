@@ -143,3 +143,4 @@ int main()
         printf("\nDo you want to continue (press 1 for yes): ");
         scanf("%d", &c);
     } while (c == 1);
+}
